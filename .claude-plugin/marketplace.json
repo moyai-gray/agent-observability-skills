@@ -1,0 +1,17 @@
+{
+  "name": "moyai",
+  "description": "Claude Code skills from Moyai for observing LLM apps and agents with OpenTelemetry.",
+  "owner": {
+    "name": "Moyai",
+    "url": "https://github.com/moyai-ai"
+  },
+  "plugins": [
+    {
+      "name": "agent-observability",
+      "source": "./plugins/agent-observability",
+      "description": "Set up vendor-neutral OpenTelemetry (GenAI semantic conventions, OTLP) for an LLM app or agent.",
+      "category": "observability",
+      "tags": ["opentelemetry", "otel", "observability", "tracing", "llm", "agents"]
+    }
+  ]
+}

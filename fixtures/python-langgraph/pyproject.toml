@@ -1,0 +1,5 @@
+[project]
+name = "fixture-python-langgraph"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = ["langgraph>=0.6", "langchain-openai>=0.3"]

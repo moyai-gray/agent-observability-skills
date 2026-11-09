@@ -1,0 +1,7 @@
+{
+  "name": "fixture-borderline-mcp-server",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node src/server.js" },
+  "dependencies": { "@modelcontextprotocol/sdk": "^1.17.0", "zod": "^3.25.0" }
+}

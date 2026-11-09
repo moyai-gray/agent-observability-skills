@@ -1,0 +1,5 @@
+[project]
+name = "fixture-python-groq"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = ["groq>=0.30"]

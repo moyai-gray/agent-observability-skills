@@ -1,0 +1,21 @@
+# Fixtures
+
+Small projects that each exercise one branch of `/setup-agent-observability`. They're inputs for the skill, not runnable demos: most need real API keys to pass Step 5.
+
+To test: copy a fixture to a scratch directory (`cp -R fixtures/<name> /tmp/<name> && cd /tmp/<name> && git init -q`), run the skill there, and compare against the expectations below. Pick "local viewer" (Jaeger) as the destination unless you're testing a real backend.
+
+Expectations reflect the matrix as of 2026-11-09. When `references/instrumentation-matrix.md` changes, update the affected rows here.
+
+| Fixture | Branch it tests | Expected outcome |
+| --- | --- | --- |
+| `no-llm` | gate: no inference | Says observability doesn't make sense (no LLM calls), lists what it searched, changes nothing |
+| `borderline-mcp-server` | gate: borderline | Explains it's an MCP server that never calls a model and **asks** whether to proceed or stop. Doesn't silently stop or silently instrument |
+| `nextjs-ai-sdk` | native route, AI SDK v5, Next.js | `instrumentation.ts` with `NEXT_RUNTIME === "nodejs"` guard importing `instrumentation.node.ts` (`@opentelemetry/sdk-node`, no exporters passed). Shared `aiTelemetry` constant with `isEnabled: true`. `experimental_telemetry` with a distinct `functionId` at **both** call sites (`route.ts`, `summarize.ts`). Report notes v7 would give GenAI-semconv spans. Env in `.env.local`, placeholders in `.env.example`. No `@vercel/otel` |
+| `monorepo-mixed` | several units, mixed languages, AI SDK v7, Anthropic built-in | Lists both units with their call paths and asks which to instrument. `apps/web`: `@ai-sdk/otel` + `registerTelemetry(new OpenTelemetry())`, `telemetry: {...aiTelemetry, functionId}` at the call site. `services/worker`: `telemetry.py` imported first in `worker.py`, **no** instrumentation package (anthropic ≥ 2 traces natively), `ANTHROPIC_OPEN_TELEMETRY_TRACES_CONTENT_MODE` set from the content answer. Distinct `OTEL_SERVICE_NAME` per unit |
+| `python-openai` | official route (Python) | `opentelemetry-instrumentation-genai-openai` (not `-openai`, not `-openai-v2`), `OpenAIInstrumentor().instrument()` in `telemetry.py`, `import telemetry` first in `app/main.py`. Content knob `SPAN_ONLY`/`NO_CONTENT` (never `true`) |
+| `python-groq` | community route (OpenLLMetry, Python) | `opentelemetry-instrumentation-groq` / `GroqInstrumentor` registered on the plain SDK; no `traceloop-sdk`. `TRACELOOP_TRACE_CONTENT` set explicitly from the content answer. Verifiable against a stub via `GROQ_BASE_URL` |
+| `python-mistral` | native route via SDK env (mistralai ≥ 3), dotenv | No instrumentation package. `MISTRAL_SDK_TELEMETRY=global` (never `dedicated`/`true`), `load_dotenv()` called at the top of `telemetry.py`. Report says content can't be turned off for this route |
+| `ts-anthropic` | native route (Anthropic JS ≥ 0.134), ESM + tsx | NodeSDK bootstrap loaded with `tsx --import`, **no** instrumentation package and **no** loader hook (nothing is monkey-patched), `ANTHROPIC_OPEN_TELEMETRY_TRACES_CONTENT_MODE` from the content answer, SIGTERM shutdown handling |
+| `python-raw-httpx` | manual route | Lists the two call sites (`chat`, `embed`) and **asks** before wiring spans. On yes: one `genai_span.py` helper, both call sites wrapped, `gen_ai.provider.name` `openai` with `server.address` from `LLM_BASE_URL`, `embeddings` operation for `embed` |
+| `python-langgraph` | framework route (official) | `opentelemetry-instrumentation-genai-langchain` only; **no** separate openai instrumentation underneath (framework spans carry model and usage) |
+| `existing-otel` | extend existing setup; version-range fallback | No second `NodeSDK`: instrumentation added to the existing one. Notices `openai` is v7, which `getNodeAutoInstrumentations()`' bundled openai instrumentation doesn't support (`<7`), so it adds `@arizeai/openinference-instrumentation-openai`, disables the bundled official one, and says the spans use OpenInference attributes. Handles ESM by adding the loader hook to the `start` script **or** calling `manuallyInstrument(openaiModule)`. Keeps the existing exporter, or asks before replacing it. Leaves the existing collector endpoint alone unless the user gives a new destination |

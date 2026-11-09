@@ -1,0 +1,13 @@
+{
+  "name": "fixture-existing-otel",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node --import ./src/instrumentation.js src/index.js" },
+  "dependencies": {
+    "@opentelemetry/auto-instrumentations-node": "^0.83.0",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.301.0",
+    "@opentelemetry/sdk-node": "^0.301.0",
+    "express": "^5.1.0",
+    "openai": "^7.53.0"
+  }
+}

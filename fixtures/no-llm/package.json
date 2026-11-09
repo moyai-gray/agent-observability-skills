@@ -1,0 +1,7 @@
+{
+  "name": "fixture-no-llm",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node src/index.js" },
+  "dependencies": { "express": "^5.1.0" }
+}

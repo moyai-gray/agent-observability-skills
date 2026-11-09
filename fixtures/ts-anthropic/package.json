@@ -1,0 +1,8 @@
+{
+  "name": "fixture-ts-anthropic",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "tsx src/index.ts", "typecheck": "tsc --noEmit" },
+  "dependencies": { "@anthropic-ai/sdk": "^1.6.0", "express": "^5.1.0" },
+  "devDependencies": { "tsx": "^4.20.0", "typescript": "^5.9.0", "@types/express": "^5.0.0", "@types/node": "^22.0.0" }
+}
