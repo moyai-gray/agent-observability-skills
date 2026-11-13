@@ -6,8 +6,8 @@
     "name": "Moyai",
     "url": "https://github.com/moyai-ai"
   },
-  "homepage": "https://github.com/moyai-ai/agent-observability-skills",
-  "repository": "https://github.com/moyai-ai/agent-observability-skills",
+  "homepage": "https://github.com/moyai-gray/agent-observability-skills",
+  "repository": "https://github.com/moyai-gray/agent-observability-skills",
   "license": "MIT",
   "keywords": ["opentelemetry", "otel", "observability", "tracing", "genai", "llm", "agents"]
 }

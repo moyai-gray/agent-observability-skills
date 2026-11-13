@@ -22,7 +22,7 @@ Supports TypeScript/JavaScript and Python in depth, and other languages on a bes
 ### As a Claude Code plugin
 
 ```
-/plugin marketplace add moyai-ai/agent-observability-skills
+/plugin marketplace add moyai-gray/agent-observability-skills
 /plugin install agent-observability@moyai
 ```
 
@@ -34,7 +34,7 @@ Into the current project:
 
 ```sh
 mkdir -p .claude/skills/setup-agent-observability && \
-curl -fsSL https://raw.githubusercontent.com/moyai-ai/agent-observability-skills/main/plugins/agent-observability/skills/setup-agent-observability/SKILL.md \
+curl -fsSL https://raw.githubusercontent.com/moyai-gray/agent-observability-skills/main/plugins/agent-observability/skills/setup-agent-observability/SKILL.md \
   -o .claude/skills/setup-agent-observability/SKILL.md
 ```
 
@@ -42,7 +42,7 @@ Use `~/.claude/skills/...` instead to install it for all projects. The skill fet
 
 With any other coding agent that can fetch URLs, skip the install and say:
 
-> Follow https://raw.githubusercontent.com/moyai-ai/agent-observability-skills/main/plugins/agent-observability/skills/setup-agent-observability/SKILL.md to set up observability for this project.
+> Follow https://raw.githubusercontent.com/moyai-gray/agent-observability-skills/main/plugins/agent-observability/skills/setup-agent-observability/SKILL.md to set up observability for this project.
 
 ## Repo layout
 

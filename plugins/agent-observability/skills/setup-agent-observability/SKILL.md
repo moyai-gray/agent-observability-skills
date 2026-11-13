@@ -15,7 +15,7 @@ Skill version: `0.1.0`
 Detail lives in `references/`, loaded only when a step points at it. To load `references/<file>`:
 
 1. If `${CLAUDE_SKILL_DIR}/references/<file>` exists (the `references/` folder beside this SKILL.md), read it.
-2. Otherwise fetch `https://raw.githubusercontent.com/moyai-ai/agent-observability-skills/v0.1.0/plugins/agent-observability/skills/setup-agent-observability/references/<file>` (`curl -fsSL`, or your web-fetch tool).
+2. Otherwise fetch `https://raw.githubusercontent.com/moyai-gray/agent-observability-skills/v0.1.0/plugins/agent-observability/skills/setup-agent-observability/references/<file>` (`curl -fsSL`, or your web-fetch tool).
 3. If that fails, fetch the same path from `main` instead of `v0.1.0`, and tell the user the pinned version was unavailable.
 
 If a reference can't be loaded at all, stop and tell the user. Package names and APIs in this space change monthly, so the references, not memory, are the source of truth.
